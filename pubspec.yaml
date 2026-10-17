@@ -1,0 +1,50 @@
+name: app_starter
+description: Ortak uygulama temeli — Flutter + Supabase + Groq.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Backend
+  supabase_flutter: ^2.5.6
+
+  # HTTP istekleri (Groq / OpenRouter / Gemini embedding)
+  http: ^1.2.1
+
+  # Tarih formatlama + çok dilli destek
+  intl: ^0.20.2
+
+  # .env dosyasından config okumak için
+  flutter_dotenv: ^6.0.1
+
+  # Kalıcı küçük ayarlar (onboarding gösterildi mi vb.)
+  shared_preferences: ^2.2.3
+
+  # Apple Sign In (native iOS)
+  sign_in_with_apple: ^6.1.1
+  crypto: ^3.0.3
+
+  # Fontlar
+  google_fonts: ^8.2.0
+
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - .env
+  config:
+    enable-swift-package-manager: false

@@ -1,0 +1,95 @@
+# Codemagic CI/CD — iOS TestFlight + Android test APK.
+#
+# Codemagic'te yapılacaklar (her yeni uygulama için bir kez):
+# 1. Environment variables > "app_secrets" adında grup oluştur:
+#    SUPABASE_URL, SUPABASE_ANON_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, GOOGLE_API_KEY
+# 2. Team integrations > App Store Connect API key bağlı olmalı (adı aşağıda "Codemagic").
+# 3. App Store Connect'te bundle ID ve App Group kayıtlı olmalı
+#    (README'deki "Yeni uygulama kontrol listesi").
+#
+# BUNDLE_ID tool/rename.dart ile otomatik güncellenir.
+workflows:
+  ios-testflight:
+    name: iOS TestFlight
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      groups:
+        - app_secrets
+      vars:
+        BUNDLE_ID: "com.example.starter"
+    integrations:
+      app_store_connect: Codemagic
+    scripts:
+      - name: Set up .env for build
+        script: |
+          echo "SUPABASE_URL=$SUPABASE_URL" > .env
+          echo "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
+          echo "GROQ_API_KEY=$GROQ_API_KEY" >> .env
+          echo "OPENROUTER_API_KEY=$OPENROUTER_API_KEY" >> .env
+          echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+      - name: Preflight (l10n + analyze)
+        script: |
+          dart run tool/preflight.dart
+          flutter analyze --no-fatal-infos
+      - name: Ensure ShareExtension target
+        script: |
+          gem install xcodeproj --no-document
+          ruby add_share_extension.rb
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --type IOS_APP_STORE \
+            --create
+          app-store-connect fetch-signing-files "$BUNDLE_ID.ShareExtension" \
+            --type IOS_APP_STORE \
+            --create
+          keychain initialize
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Install CocoaPods dependencies
+        script: |
+          find . -name "Podfile" -execdir pod install \;
+      - name: Flutter build ipa
+        script: |
+          flutter build ipa --release \
+            --build-number=$(($(date +%s) / 60)) \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+
+  android-internal:
+    name: Android test APK
+    max_build_duration: 60
+    instance_type: linux_x2
+    environment:
+      flutter: stable
+      groups:
+        - app_secrets
+    scripts:
+      - name: Set up .env for build
+        script: |
+          echo "SUPABASE_URL=$SUPABASE_URL" > .env
+          echo "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" >> .env
+          echo "GROQ_API_KEY=$GROQ_API_KEY" >> .env
+          echo "OPENROUTER_API_KEY=$OPENROUTER_API_KEY" >> .env
+          echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env
+      - name: Get Flutter packages
+        script: |
+          flutter pub get
+      - name: Build APK
+        script: |
+          flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk

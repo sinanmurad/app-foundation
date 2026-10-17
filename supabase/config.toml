@@ -1,0 +1,6 @@
+[functions.delete-account]
+enabled = true
+# JWT, fonksiyonun içinde elle doğrulanıyor.
+verify_jwt = false
+import_map = "./functions/delete-account/deno.json"
+entrypoint = "./functions/delete-account/index.ts"

@@ -24,5 +24,10 @@
   "cancel": "Cancel",
   "delete": "Delete",
   "save": "Save",
-  "errorGeneric": "Something went wrong. Please try again."
+  "errorGeneric": "Something went wrong. Please try again.",
+  "upgradeToPro": "Upgrade to Pro",
+  "proActive": "Pro is active",
+  "restorePurchases": "Restore purchases",
+  "manageSubscription": "Manage subscription",
+  "restoreNothingFound": "No active subscription found."
 }

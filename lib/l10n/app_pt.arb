@@ -24,5 +24,10 @@
   "cancel": "Cancelar",
   "delete": "Excluir",
   "save": "Salvar",
-  "errorGeneric": "Algo deu errado. Tente novamente."
+  "errorGeneric": "Algo deu errado. Tente novamente.",
+  "upgradeToPro": "Assinar o Pro",
+  "proActive": "Pro ativo",
+  "restorePurchases": "Restaurar compras",
+  "manageSubscription": "Gerenciar assinatura",
+  "restoreNothingFound": "Nenhuma assinatura ativa encontrada."
 }

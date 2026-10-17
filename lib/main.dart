@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +12,7 @@ import 'screens/home_screen.dart';
 import 'services/auth_service.dart';
 import 'services/share_pipeline.dart';
 import 'services/share_service.dart';
+import 'services/subscription_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -54,6 +57,8 @@ class StarterApp extends StatelessWidget {
 /// - Açılışta oturum yoksa sessizce anonim oturum açar (kayıt sürtünmesi
 ///   yok). Anonim giriş başarısız olursa veya kullanıcı çıkış yaparsa
 ///   AuthScreen gösterilir.
+/// - Oturum değiştikçe abonelik kimliğini (RevenueCat) Supabase user_id ile
+///   eşler.
 /// - Uygulama her öne geldiğinde Share Extension kuyruğunu işler.
 class RootGate extends StatefulWidget {
   const RootGate({super.key});
@@ -66,23 +71,38 @@ class _RootGateState extends State<RootGate> with WidgetsBindingObserver {
   final AuthService _auth = AuthService();
   final SharePipeline _pipeline = SharePipeline();
   bool _bootstrapping = true;
+  StreamSubscription<AuthState>? _authSub;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _authSub = _auth.authStateChanges.listen(_onAuthChanged);
     _bootstrap();
   }
 
   @override
   void dispose() {
+    _authSub?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
+  void _onAuthChanged(AuthState state) {
+    final userId = state.session?.user.id;
+    if (userId != null) {
+      SubscriptionService.instance.identify(userId);
+    } else if (state.event == AuthChangeEvent.signedOut) {
+      SubscriptionService.instance.reset();
+    }
+  }
+
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _processShares();
+    if (state == AppLifecycleState.resumed) {
+      _processShares();
+      SubscriptionService.instance.refresh();
+    }
   }
 
   Future<void> _bootstrap() async {

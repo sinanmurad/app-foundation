@@ -24,5 +24,10 @@
   "cancel": "Cancelar",
   "delete": "Eliminar",
   "save": "Guardar",
-  "errorGeneric": "Algo salió mal. Inténtalo de nuevo."
+  "errorGeneric": "Algo salió mal. Inténtalo de nuevo.",
+  "upgradeToPro": "Hazte Pro",
+  "proActive": "Pro activo",
+  "restorePurchases": "Restaurar compras",
+  "manageSubscription": "Gestionar suscripción",
+  "restoreNothingFound": "No se encontró ninguna suscripción activa."
 }

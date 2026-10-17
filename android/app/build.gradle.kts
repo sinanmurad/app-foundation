@@ -30,7 +30,8 @@ android {
 
     defaultConfig {
         applicationId = "com.example.starter"
-        minSdk = flutter.minSdkVersion
+        // RevenueCat paywall UI en az Android 7.0 (API 24) ister.
+        minSdk = maxOf(24, flutter.minSdkVersion)
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

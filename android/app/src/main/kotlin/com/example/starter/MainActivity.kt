@@ -1,6 +1,6 @@
 package com.example.starter
 
-import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragmentActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import org.json.JSONArray
@@ -10,8 +10,10 @@ import java.io.File
  * iOS AppDelegate'teki share kanalının Android karşılığı.
  * ShareActivity paylaşılanları pending_shares.json dosyasına yazar,
  * Flutter (lib/services/share_service.dart) buradan tek tek okur.
+ *
+ * FlutterFragmentActivity: RevenueCat paywall ekranı bunu zorunlu kılar.
  */
-class MainActivity : FlutterActivity() {
+class MainActivity : FlutterFragmentActivity() {
     private val channelName = "app.starter/share"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {

@@ -31,6 +31,11 @@ dependencies:
   sign_in_with_apple: ^6.1.1
   crypto: ^3.0.3
 
+  # Abonelik / paywall (RevenueCat). Paywall tasarımı RevenueCat
+  # dashboard'unda yapılır, kod değişikliği gerekmez.
+  purchases_flutter: ^10.16.0
+  purchases_ui_flutter: ^10.16.0
+
   # Fontlar
   google_fonts: ^8.2.0
 

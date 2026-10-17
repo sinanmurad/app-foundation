@@ -2,7 +2,8 @@
 #
 # Codemagic'te yapılacaklar (her yeni uygulama için bir kez):
 # 1. Environment variables > "app_secrets" adında grup oluştur:
-#    SUPABASE_URL, SUPABASE_ANON_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, GOOGLE_API_KEY
+#    SUPABASE_URL, SUPABASE_ANON_KEY, GROQ_API_KEY, OPENROUTER_API_KEY, GOOGLE_API_KEY,
+#    REVENUECAT_IOS_KEY, REVENUECAT_ANDROID_KEY
 # 2. Team integrations > App Store Connect API key bağlı olmalı (adı aşağıda "Codemagic").
 # 3. App Store Connect'te bundle ID ve App Group kayıtlı olmalı
 #    (README'deki "Yeni uygulama kontrol listesi").
@@ -31,6 +32,8 @@ workflows:
           echo "GROQ_API_KEY=$GROQ_API_KEY" >> .env
           echo "OPENROUTER_API_KEY=$OPENROUTER_API_KEY" >> .env
           echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env
+          echo "REVENUECAT_IOS_KEY=$REVENUECAT_IOS_KEY" >> .env
+          echo "REVENUECAT_ANDROID_KEY=$REVENUECAT_ANDROID_KEY" >> .env
       - name: Get Flutter packages
         script: |
           flutter pub get
@@ -85,6 +88,8 @@ workflows:
           echo "GROQ_API_KEY=$GROQ_API_KEY" >> .env
           echo "OPENROUTER_API_KEY=$OPENROUTER_API_KEY" >> .env
           echo "GOOGLE_API_KEY=$GOOGLE_API_KEY" >> .env
+          echo "REVENUECAT_IOS_KEY=$REVENUECAT_IOS_KEY" >> .env
+          echo "REVENUECAT_ANDROID_KEY=$REVENUECAT_ANDROID_KEY" >> .env
       - name: Get Flutter packages
         script: |
           flutter pub get

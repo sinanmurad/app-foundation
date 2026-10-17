@@ -24,5 +24,10 @@
   "cancel": "Vazgeç",
   "delete": "Sil",
   "save": "Kaydet",
-  "errorGeneric": "Bir şeyler ters gitti. Lütfen tekrar dene."
+  "errorGeneric": "Bir şeyler ters gitti. Lütfen tekrar dene.",
+  "upgradeToPro": "Pro'ya geç",
+  "proActive": "Pro aktif",
+  "restorePurchases": "Satın alımları geri yükle",
+  "manageSubscription": "Aboneliği yönet",
+  "restoreNothingFound": "Aktif abonelik bulunamadı."
 }

@@ -18,6 +18,15 @@ class AppConfig {
   /// Google Gemini — embedding (semantik arama) için.
   static String get googleApiKey => dotenv.env['GOOGLE_API_KEY'] ?? '';
 
+  /// RevenueCat public SDK anahtarları (platforma göre ayrı).
+  /// Boş bırakılırsa abonelik sistemi kapalı çalışır, uygulama yine açılır.
+  static String get revenueCatIosKey => dotenv.env['REVENUECAT_IOS_KEY'] ?? '';
+  static String get revenueCatAndroidKey =>
+      dotenv.env['REVENUECAT_ANDROID_KEY'] ?? '';
+
+  /// RevenueCat dashboard'undaki entitlement kimliği.
+  static const String proEntitlementId = 'pro';
+
   /// Supabase zorunlu; AI anahtarları "best effort" (yoksa AI özellikleri
   /// sessizce devre dışı kalır, uygulama yine açılır).
   static void validate() {

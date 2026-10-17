@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../l10n/app_localizations.dart';
 import '../services/auth_service.dart';
+import '../services/subscription_service.dart';
 
-/// Ayarlar: misafir hesabı güvenceye alma, çıkış, hesap silme
-/// (hesap silme App Store için zorunludur).
+/// Ayarlar: abonelik, misafir hesabı güvenceye alma, çıkış, hesap silme
+/// (hesap silme ve "satın alımları geri yükle" App Store için zorunludur).
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
@@ -89,6 +90,63 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+  Future<void> _restore() async {
+    final l10n = AppLocalizations.of(context)!;
+    final messenger = ScaffoldMessenger.of(context);
+    await _run(() async {
+      final isPro = await SubscriptionService.instance.restore();
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(isPro ? l10n.proActive : l10n.restoreNothingFound),
+        ),
+      );
+    });
+  }
+
+  Widget _buildSubscriptionSection(AppLocalizations l10n) {
+    final subscriptions = SubscriptionService.instance;
+    if (!subscriptions.isEnabled) return const SizedBox.shrink();
+
+    return ValueListenableBuilder<bool>(
+      valueListenable: subscriptions.isPro,
+      builder: (context, isPro, _) {
+        final scheme = Theme.of(context).colorScheme;
+        return Column(
+          children: [
+            if (isPro) ...[
+              ListTile(
+                leading: Icon(Icons.workspace_premium, color: scheme.primary),
+                title: Text(l10n.proActive),
+              ),
+              ListTile(
+                leading: const Icon(Icons.manage_accounts_outlined),
+                title: Text(l10n.manageSubscription),
+                onTap: () => _run(subscriptions.manageSubscription),
+              ),
+            ] else
+              ListTile(
+                leading: Icon(Icons.workspace_premium, color: scheme.primary),
+                title: Text(
+                  l10n.upgradeToPro,
+                  style: TextStyle(
+                    color: scheme.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                onTap: () => _run(subscriptions.showPaywall),
+              ),
+            ListTile(
+              leading: const Icon(Icons.restore),
+              title: Text(l10n.restorePurchases),
+              onTap: _restore,
+            ),
+            const Divider(),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _confirmDelete() async {
     final l10n = AppLocalizations.of(context)!;
     final confirmed = await showDialog<bool>(
@@ -129,6 +187,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         absorbing: _busy,
         child: ListView(
           children: [
+            _buildSubscriptionSection(l10n),
             if (isGuest)
               Card(
                 margin: const EdgeInsets.all(16),

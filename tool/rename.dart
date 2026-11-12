@@ -1,8 +1,8 @@
 // Şablonu yeni bir uygulamaya dönüştürür.
 //
 // Kullanım (proje kökünde):
-//   dart run tool/rename.dart --name "Petlog" --bundle com.sinanmurad.petlog
-//   dart run tool/rename.dart --name "Petlog" --bundle com.sinanmurad.petlog --team ABCDE12345
+//   dart run tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp
+//   dart run tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp --team ABCDE12345
 //
 // Yaptıkları:
 //   - com.example.starter → yeni bundle ID (iOS, Share Extension, App Group,
@@ -19,7 +19,7 @@ import 'dart:io';
 const String kOldBundle = 'com.example.starter';
 const String kOldName = 'Starter App';
 const String kOldScheme = 'starterapp';
-const String kOldTeam = 'F844P9C24K';
+const String kOldTeam = 'ABCDE12345';
 const String kOldPackageName = 'app_starter';
 
 const Set<String> kTextExtensions = {
@@ -57,7 +57,7 @@ void main(List<String> args) {
   }
   final bundleRegex = RegExp(r'^[a-z][a-z0-9]*(\.[a-z][a-z0-9_]*)+$');
   if (!bundleRegex.hasMatch(bundle)) {
-    _fail('Geçersiz bundle ID: "$bundle". Örnek: com.sinanmurad.petlog '
+    _fail('Geçersiz bundle ID: "$bundle". Örnek: com.yourcompany.myapp '
         '(küçük harf, rakam, nokta; tire kullanma — Android kabul etmez).');
   }
   if (team != null && !RegExp(r'^[A-Z0-9]{10}$').hasMatch(team)) {

@@ -12,7 +12,7 @@ EXTENSION_NAME = 'ShareExtension'
 APP_BUNDLE_ID = ENV.fetch('BUNDLE_ID', 'com.example.starter')
 BUNDLE_ID = "#{APP_BUNDLE_ID}.ShareExtension"
 DEPLOYMENT_TARGET = '13.0'
-TEAM_ID = ENV.fetch('APPLE_TEAM_ID', 'F844P9C24K')
+TEAM_ID = ENV.fetch('APPLE_TEAM_ID', 'ABCDE12345')
 
 project = Xcodeproj::Project.open(PROJECT_PATH)
 

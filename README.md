@@ -1,5 +1,7 @@
 # App Foundation
 
+![App Foundation](docs/banner.png)
+
 **Flutter + Supabase + RevenueCat starter with AI search and a share extension.**
 Ship a subscription-ready iOS/Android app without rebuilding the boring parts.
 

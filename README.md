@@ -38,14 +38,14 @@ git clone https://github.com/your-name/myapp
 cd myapp
 
 # Rename the app and bundle ID everywhere
-dart run tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp --team ABCDE12345
+dart tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp --team ABCDE12345
 
 # Environment variables
 cp .env.example .env      # Windows: copy .env.example .env
 # fill in .env
 
 flutter pub get
-dart run tool/preflight.dart
+dart tool/preflight.dart
 flutter analyze
 ```
 
@@ -96,7 +96,7 @@ if (await SubscriptionService.instance.requirePro()) {
 
 ## Rules
 
-- Before every build: `dart run tool/preflight.dart` + `flutter analyze` with zero errors. Codemagic runs this automatically; the build stops if ARB keys differ.
+- Before every build: `dart tool/preflight.dart` + `flutter analyze` with zero errors. Codemagic runs this automatically; the build stops if ARB keys differ.
 - New UI text → add the key to all 4 ARB files first, then use `AppLocalizations.of(context)!.key`.
 - Groq does not work on web (CORS); test on a device or simulator.
 - Never commit `.env`, `*.p8` or keystore files (already in `.gitignore`).

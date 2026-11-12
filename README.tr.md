@@ -41,14 +41,14 @@ git clone https://github.com/your-name/myapp
 cd petlog
 
 # Adı ve bundle ID'yi her yerde değiştir
-dart run tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp
+dart tool/rename.dart --name "MyApp" --bundle com.yourcompany.myapp
 
 # Ortam değişkenleri
 cp .env.example .env      # Windows: copy .env.example .env
 # .env içini doldur
 
 flutter pub get
-dart run tool/preflight.dart
+dart tool/preflight.dart
 flutter analyze
 ```
 
@@ -95,7 +95,7 @@ if (await SubscriptionService.instance.requirePro()) {
 
 ## Kurallar
 
-- Her build öncesi: `dart run tool/preflight.dart` + `flutter analyze` sıfır hata. Codemagic bunu otomatik çalıştırır; ARB anahtarları eşit değilse build durur.
+- Her build öncesi: `dart tool/preflight.dart` + `flutter analyze` sıfır hata. Codemagic bunu otomatik çalıştırır; ARB anahtarları eşit değilse build durur.
 - Yeni UI metni → önce 4 ARB dosyasına anahtar ekle, kodda `AppLocalizations.of(context)!.anahtar` kullan.
 - Groq web'de CORS yüzünden çalışmaz; telefon veya simülatörde test et.
 - `.env`, `*.p8`, keystore dosyaları asla commitlenmez (`.gitignore`'da).

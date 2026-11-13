@@ -1,0 +1,10 @@
+name: Feature request
+description: Suggest something most apps need
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should be added, and why does almost every app need it?
+    validations:
+      required: true

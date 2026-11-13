@@ -11,6 +11,19 @@ Kural: Uygulamaya özel hiçbir şey bu repoya girmez. Burada sadece **her
 uygulamada lazım olan** altyapı durur. Bir uygulamada geliştirdiğin genel bir
 parça (ödeme, bildirim, onboarding...) olgunlaşınca buraya geri taşınır.
 
+## Mac yok. Xcode yok. Windows'ta yapıldı.
+
+Çoğu iOS şablonu sessizce Mac'in olduğunu varsayar. Bu şablon varsaymaz.
+
+Buradaki her şey **Windows bilgisayarda**, **Mac ve yerel Xcode olmadan** geliştirildi ve yayınlandı:
+
+- **Xcode'suz iOS Share Extension.** iOS Share Extension eklemek normalde Xcode'da elle ayar demektir. Burada `add_share_extension.rb`, uzantıyı CI makinesinde Xcode projesine kendisi ekler (Ruby + `xcodeproj`). Mac'e hiç dokunmadan Share Extension'lı build alırsın.
+- **Android ShareActivity:** aynı "uygulamaya paylaş" akışı iki platformda da çalışır.
+- **Codemagic → TestFlight** hattı (`codemagic.yaml`) imzalamayı, derlemeyi ve yüklemeyi senin yerine yapar.
+- Aynı yöntem, App Store'da yayında olan gerçek bir uygulamada kullanılıyor.
+
+Burada otomatik doğrulanan: her push'ta ve her pazartesi GitHub Actions preflight kontrolünü, `flutter analyze`'ı ve Android debug derlemesini çalıştırır. iOS derlemesi kendi Codemagic hesabında çalışır (Apple kimlik bilgilerin gerekir).
+
 ## İçinde ne var
 
 | Parça | Dosya |

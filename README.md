@@ -5,9 +5,22 @@
 ![App Foundation](docs/banner.png)
 
 **Flutter + Supabase + RevenueCat starter with AI search and a share extension.**
-Ship a subscription-ready iOS/Android app without rebuilding the boring parts.
+Ship a subscription-ready iOS/Android app without rebuilding the boring parts, and without owning a Mac.
 
 [Türkçe README](README.tr.md) · License: MIT · [Contributing](CONTRIBUTING.md)
+
+## No Mac. No Xcode. Built on Windows.
+
+Most iOS starters quietly assume you own a Mac. This one does not.
+
+Everything here was built and shipped from a **Windows PC**, with **no Mac and no local Xcode**:
+
+- **iOS Share Extension without Xcode.** Adding an iOS Share Extension normally means clicking through Xcode. Here, `add_share_extension.rb` creates the extension target inside the Xcode project on the CI machine (Ruby + `xcodeproj`), so you get a Share Extension build with zero Mac access.
+- **Android ShareActivity**, so the same share-to-app flow works on both platforms.
+- **Codemagic → TestFlight** pipeline (`codemagic.yaml`) that signs, builds and uploads the iOS app for you.
+- The same approach is used in a production app that is live on the App Store.
+
+What is verified automatically here: every push and every Monday, GitHub Actions runs the preflight check, `flutter analyze` and an Android debug build. The iOS build runs on Codemagic in your own account (it needs your Apple credentials).
 
 ## What's inside
 

@@ -1,5 +1,7 @@
 # App Foundation
 
+[![Analyze](https://github.com/sinanmurad/app-foundation/actions/workflows/analyze.yml/badge.svg)](https://github.com/sinanmurad/app-foundation/actions/workflows/analyze.yml)
+
 [English README](README.md)
 
 Yeni her mobil uygulamanın üzerine kurulduğu ortak temel.

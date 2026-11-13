@@ -1,11 +1,13 @@
 # App Foundation
 
+[![Analyze](https://github.com/sinanmurad/app-foundation/actions/workflows/analyze.yml/badge.svg)](https://github.com/sinanmurad/app-foundation/actions/workflows/analyze.yml)
+
 ![App Foundation](docs/banner.png)
 
 **Flutter + Supabase + RevenueCat starter with AI search and a share extension.**
 Ship a subscription-ready iOS/Android app without rebuilding the boring parts.
 
-[Türkçe README](README.tr.md) · License: MIT
+[Türkçe README](README.tr.md) · License: MIT · [Contributing](CONTRIBUTING.md)
 
 ## What's inside
 

@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+  schedule:
+    # Weekly: catches breakage from new Flutter/Gradle releases early.
+    - cron: '0 6 * * 1'
 
 jobs:
   analyze:
